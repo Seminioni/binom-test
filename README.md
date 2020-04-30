@@ -1,5 +1,10 @@
 # binom-test
 
+## Look at now.sh
+```
+https://binom-test.now.sh/
+```
+
 ## Project setup
 ```
 npm install

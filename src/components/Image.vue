@@ -1,5 +1,5 @@
 <template>
-  <div class="image border">
+  <div class="image">
     <transition
       appear
       name="fade"
@@ -9,12 +9,14 @@
         :src="notFoundSvg"
         :alt="alt"
         key="1"
+        class="border"
         v-if="isCorruptUrl"
       />
       <img
         :alt="alt"
         :src="url"
         key="1"
+        class="border"
         v-else
       />
     </transition>

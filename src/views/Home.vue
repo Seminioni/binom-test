@@ -1,18 +1,107 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home flex flex-col items-center">
+    <search v-model="movie" />
+
+    <pagination
+      :container-class="'flex'"
+      :next-text="'Next'"
+      :page-count="pages"
+      :prev-text="'Prev'"
+      v-model="page"
+    ></pagination>
+
+    <p v-if="results.length === 0 && movie">There's no movie you are finding</p>
+
+    <div
+      class="movies-list"
+      v-else
+    >
+      <ul class="flex flex-wrap justify-center">
+        <li
+          :key="movie.id"
+          v-for="movie in results"
+        >
+          <router-link :to="{ name: 'movie', params: { id: movie.id }}">
+            <movie-card
+              :alt="movie.original_title"
+              :baseUrl="configuration.images.base_url"
+              :path="movie.poster_path"
+              :sizes="configuration.images.poster_sizes"
+              size="w185"
+            />
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+  import { searchMovies } from '@/modules/searchMovies.js';
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
-};
+  export default {
+    name: 'Home',
+
+    inject: ['configuration'],
+
+    data() {
+      return {
+        movie: '',
+        page: 1,
+        pages: 1,
+        results: [],
+      };
+    },
+
+    components: {
+      Search: () => import('../components/Search.vue'),
+      MovieCard: () => import('../components/Image.vue'),
+      Pagination: () => import('vuejs-paginate'),
+    },
+
+    watch: {
+      page(page) {
+        this.saveMovies(
+          searchMovies({
+            query: this.movie ? this.movie : 'trending',
+            page,
+          }),
+        );
+      },
+
+      movie(name) {
+        this.page = 1;
+
+        this.saveMovies(
+          searchMovies({ query: name ? name : 'trending', page: this.page }),
+        );
+      },
+    },
+
+    methods: {
+      paginationHandler(page) {
+        this.page = page;
+      },
+
+      async saveMovies(movies) {
+        try {
+          movies = await movies;
+
+          this.results = movies.results;
+          this.page = movies.page;
+          this.pages = movies.total_pages;
+        } catch (e) {
+          if (movies instanceof 'MovieDoesntExistsError') {
+            this.result = [];
+            this.page = 1;
+            this.pages = 1;
+          }
+        }
+      },
+    },
+
+    async created() {
+      this.saveMovies(searchMovies({ query: 'trending' }));
+    },
+  };
 </script>

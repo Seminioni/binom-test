@@ -11,6 +11,7 @@
       :page-class="'ml-2 mr-2'"
       :page-count="pages"
       :prev-text="'Prev'"
+      active-class="border p-1"
       v-model="page"
     ></pagination>
 

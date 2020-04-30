@@ -1,12 +1,12 @@
 <template>
   <div class="movie-card mt-10 flex justify-center">
-    <section class="movie-info max-w-2xl flex">
+    <section class="movie-info max-w-2xl flex flex-col items-center md:items-start md:flex-row">
       <movie-image
         :alt="movie.original_title"
         :baseUrl="configuration.images.base_url"
         :path="movie.poster_path"
         :sizes="configuration.images.poster_sizes"
-        class="flex-shrink-0"
+        class="flex-shrink-0 mb-10 md:mb-0"
         size="w185"
       />
 

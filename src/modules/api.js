@@ -13,7 +13,7 @@ const appendParams = (to, from) => {
 };
 
 export const api = (url, options = {}) => {
-  const apiKey = process.env.VUE_APP_TMDB_API_KEY;
+  const apiKey = '07243661b0e9870ab1926e84744efdd0';
   const defaultParams = new URLSearchParams();
 
   defaultParams.append('api_key', apiKey);

@@ -1,12 +1,13 @@
 <template>
-  <div class="image">
+  <div class="image border">
     <transition
       appear
       name="fade"
     >
       <img
+        :style="{width: '185px', height: '278px'}"
         :src="notFoundSvg"
-        alt
+        :alt="alt"
         key="1"
         v-if="isCorruptUrl"
       />
@@ -17,6 +18,8 @@
         v-else
       />
     </transition>
+
+    <slot></slot>
   </div>
 </template>
 

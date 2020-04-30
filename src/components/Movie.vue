@@ -1,15 +1,19 @@
 <template>
-  <div class="movie-card container mx-auto">
-    <h3>{{movie.original_title}}</h3>
+  <div class="movie-card flex items-center flex-col">
+    <h2 class="text-2xl mb-10">{{movie.original_title}}</h2>
 
-    <movie-image
-      class="w-20"
-      :baseUrl="configuration.images.base_url"
-      :path="movie.poster_path"
-      :sizes="configuration.images.poster_sizes"
-      size="w154"
-      :alt="movie.original_title"
-    />
+    <section class="movie-info flex">
+      <movie-image
+        :alt="movie.original_title"
+        :baseUrl="configuration.images.base_url"
+        :path="movie.poster_path"
+        :sizes="configuration.images.poster_sizes"
+        class
+        size="w185"
+      />
+
+      <div class=""></div>
+    </section>
   </div>
 </template>
 
@@ -17,7 +21,7 @@
   import { getMovie } from '@/modules/getMovie.js';
 
   export default {
-    name: "Movie",
+    name: 'Movie',
 
     inject: ['configuration'],
 

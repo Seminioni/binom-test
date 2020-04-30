@@ -1,10 +1,14 @@
 <template>
   <div class="home flex flex-col items-center">
-    <search v-model="movie" />
+    <search
+      class="mt-5 mb-5 border-solid border-2 rounded-sm border-gray-600 p-3"
+      v-model="movie"
+    />
 
     <pagination
-      :container-class="'flex'"
+      :container-class="'flex items-center mb-5'"
       :next-text="'Next'"
+      :page-class="'ml-2 mr-2'"
       :page-count="pages"
       :prev-text="'Prev'"
       v-model="page"
@@ -27,8 +31,18 @@
               :baseUrl="configuration.images.base_url"
               :path="movie.poster_path"
               :sizes="configuration.images.poster_sizes"
+              class="relative"
               size="w185"
-            />
+            >
+              <p class="tags flex flex-col absolute left-0 top-0 text-left">
+                <span
+                  :key="id"
+                  class="bg-white mb-1"
+                  v-for="id in movie.genre_ids"
+                  v-text="getGenre(id, genres) ['name']"
+                ></span>
+              </p>
+            </movie-card>
           </router-link>
         </li>
       </ul>
@@ -42,7 +56,7 @@
   export default {
     name: 'Home',
 
-    inject: ['configuration'],
+    inject: ['configuration', 'genres'],
 
     data() {
       return {
@@ -79,6 +93,14 @@
     },
 
     methods: {
+      getGenre(id, genres) {
+        const genre = genres.find(el => {
+          return el.id === id
+        });
+
+        return genre ? genre : { name: '' };
+      },
+
       paginationHandler(page) {
         this.page = page;
       },

@@ -12,6 +12,7 @@
       :page-count="pages"
       :prev-text="'Prev'"
       active-class="border p-1"
+      v-if="results.length !== 0"
       v-model="page"
     ></pagination>
 
@@ -96,7 +97,7 @@
     methods: {
       getGenre(id, genres) {
         const genre = genres.find(el => {
-          return el.id === id
+          return el.id === id;
         });
 
         return genre ? genre : { name: '' };

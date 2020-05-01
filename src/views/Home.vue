@@ -116,7 +116,7 @@
           this.pages = movies.total_pages;
         } catch (e) {
           if (movies instanceof 'MovieDoesntExistsError') {
-            this.result = [];
+            this.results = [];
             this.page = 1;
             this.pages = 1;
           }

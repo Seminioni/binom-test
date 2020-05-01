@@ -1,5 +1,11 @@
 # binom-test
 
+## TO-DO
+
+- [ ] Add "get back" button
+- [ ] Resolve broken images' issue
+- [ ] Make search stateful
+
 ## Look at now.sh
 ```
 https://binom-test.now.sh/

@@ -4,7 +4,6 @@
       class="mt-5 mb-5 border-solid border-2 rounded-sm border-gray-600 p-3"
       v-model="movie"
     />
-
     <pagination
       :container-class="'flex items-center mb-5'"
       :next-text="'Next'"
@@ -14,7 +13,7 @@
       active-class="border p-1"
       v-if="results.length !== 0"
       v-model="page"
-    ></pagination>
+    />
 
     <p v-if="results.length === 0 && movie">There's no movie you are finding</p>
 
